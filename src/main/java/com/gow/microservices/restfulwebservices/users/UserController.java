@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addUser(@RequestBody User user)
+    public ResponseEntity addUser(@Valid @RequestBody User user)
     {
         User savedUser = myUserDaoService.addUser(user);
         if (savedUser != null)
