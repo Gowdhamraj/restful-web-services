@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private UserDaoService myUserDaoService;
@@ -22,7 +22,7 @@ public class UserController {
         myUserDaoService = userDaoService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAllUsers()
     {
         return myUserDaoService.getAllUsers();

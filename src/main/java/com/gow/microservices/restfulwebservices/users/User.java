@@ -8,52 +8,53 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class User {
+
     @Size(min = 3, max = 9, message = "At least 3 characters")
-    private String name;
+    private String myName;
 
     @Digits(integer = 1, fraction = 0)
-    private Integer id;
+    private Integer myId;
 
     @Past
     @Nullable
-    private Date birthDay;
+    private Date myBirthDay;
 
-    public User(String name, Integer id, Date birthDay) {
-        this.name = name;
-        this.id = id;
-        this.birthDay = birthDay;
+    public User(String name, Integer id, Date myBirthDay) {
+        this.myName = name;
+        this.myId = id;
+        this.myBirthDay = myBirthDay;
     }
 
     public String getName() {
-        return name;
+        return myName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String myName) {
+        this.myName = myName;
     }
 
     public Integer getId() {
-        return id;
+        return myId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer myId) {
+        this.myId = myId;
     }
 
     public Date getBirthDay() {
-        return birthDay;
+        return myBirthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthDay(Date myBirthDay) {
+        this.myBirthDay = myBirthDay;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", birthDay=" + birthDay +
+                "name='" + myName + '\'' +
+                ", id=" + myId +
+                ", birthDay=" + myBirthDay +
                 '}';
     }
 }
