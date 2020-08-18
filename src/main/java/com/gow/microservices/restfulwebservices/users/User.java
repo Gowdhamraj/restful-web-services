@@ -1,18 +1,19 @@
 package com.gow.microservices.restfulwebservices.users;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@ApiModel(description = "User model")
 public class User {
 
     @Size(min = 3, max = 9, message = "At least 3 characters")
     private String myName;
 
-    @Digits(integer = 1, fraction = 0)
     private Integer myId;
 
     @Past
@@ -25,6 +26,7 @@ public class User {
         this.myBirthDay = myBirthDay;
     }
 
+    @ApiModelProperty(required = true, allowEmptyValue = false, notes = "3-9 characters")
     public String getName() {
         return myName;
     }
@@ -33,6 +35,7 @@ public class User {
         this.myName = myName;
     }
 
+    @ApiModelProperty(required = true)
     public Integer getId() {
         return myId;
     }
@@ -41,6 +44,7 @@ public class User {
         this.myId = myId;
     }
 
+    @ApiModelProperty(required = false)
     public Date getBirthDay() {
         return myBirthDay;
     }
