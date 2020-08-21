@@ -14,24 +14,24 @@ import java.util.List;
 @RequestMapping("/api/v2/users")
 public class UserController {
 
-    private UserDaoService myUserDaoService;
+    private UserService myUserService;
 
     @Autowired
-    public UserController(UserDaoService userDaoService)
+    public UserController(UserService userService)
     {
-        myUserDaoService = userDaoService;
+        myUserService = userService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAllUsers()
     {
-        return myUserDaoService.getAllUsers();
+        return myUserService.getAllUsers();
     }
 
-    @GetMapping(path = "/{name}")
+    @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable String name)
     {
-        User user = myUserDaoService.getUser(name);
+        User user = myUserService.getUser(name);
         if (user == null)
         {
             throw new UserNotFoundException("User not found with the name " + name);
@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addUser(@Valid @RequestBody User user)
     {
-        User savedUser = myUserDaoService.addUser(user);
+        User savedUser = myUserService.addUser(user);
         if (savedUser != null)
         {
             URI uri = ServletUriComponentsBuilder
@@ -55,10 +55,10 @@ public class UserController {
         return ResponseEntity.status(406).build();
     }
 
-    @DeleteMapping(path = "/{name}")
+    @DeleteMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User deleteUser(@PathVariable String name)
     {
-        User user = myUserDaoService.deleteUser(name);
+        User user = myUserService.deleteUser(name);
         if (user == null)
         {
             throw new UserNotFoundException("User not found with the name " + name);

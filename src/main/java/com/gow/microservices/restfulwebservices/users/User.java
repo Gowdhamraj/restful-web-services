@@ -5,26 +5,31 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @ApiModel(description = "User model")
 @Entity
-public class User {
+public class User{
 
     @Size(min = 3, max = 9, message = "At least 3 characters")
     @Id
     private String myName;
 
-    @GeneratedValue
+    @NotNull
     private Integer myId;
 
     @Past
     @Nullable
     private Date myBirthDay;
+
+    public User()
+    {
+
+    }
 
     public User(String name, Integer id, Date myBirthDay) {
         this.myName = name;
