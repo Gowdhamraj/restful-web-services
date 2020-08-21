@@ -4,16 +4,22 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @ApiModel(description = "User model")
+@Entity
 public class User {
 
     @Size(min = 3, max = 9, message = "At least 3 characters")
+    @Id
     private String myName;
 
+    @GeneratedValue
     private Integer myId;
 
     @Past
