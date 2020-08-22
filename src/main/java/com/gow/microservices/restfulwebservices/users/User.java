@@ -32,6 +32,7 @@ public class User{
     private Date myBirthDay;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Nullable
     private List<Post> myPosts;
 
     public User()

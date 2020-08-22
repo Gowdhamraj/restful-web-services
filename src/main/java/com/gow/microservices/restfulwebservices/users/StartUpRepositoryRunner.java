@@ -27,6 +27,7 @@ public class StartUpRepositoryRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        SANSA_STARK.setPosts(ImmutableList.of(new Post(3221, "JEOFFERY! RAMSEY!!", SANSA_STARK)));
         List<User> iceAndFire = ImmutableList.of(JON_SNOW, DAENERYS_TARGARYEN, SANSA_STARK);
         myUserRepository.saveAll(iceAndFire);
 
