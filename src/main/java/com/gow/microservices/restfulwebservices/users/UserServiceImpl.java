@@ -30,8 +30,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public User deleteUser(String name) {
         String formattedName = name.substring(0,1).toUpperCase()+name.substring(1).toLowerCase();
-        User user = userRepository.findById(formattedName).get();
-        userRepository.deleteById(formattedName);
+        User user;
+        try
+        {
+            user = userRepository.findById(formattedName).get();
+            userRepository.deleteById(formattedName);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
         return user;
     }
 }

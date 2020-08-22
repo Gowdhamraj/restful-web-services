@@ -29,14 +29,9 @@ public class UserController {
     }
 
     @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User getUser(@PathVariable String name)
+    public User getUserByName(@PathVariable String name)
     {
-        User user = myUserService.getUser(name);
-        if (user == null)
-        {
-            throw new UserNotFoundException("User not found with the name " + name);
-        }
-        return user;
+        return getUser(name);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -60,6 +55,26 @@ public class UserController {
     {
         User user = myUserService.deleteUser(name);
         if (user == null)
+        {
+            throw new UserNotFoundException("User not found with the name " + name);
+        }
+        return user;
+    }
+
+    @GetMapping(path = "/{name}/posts", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Post> getPostsByUserName(@PathVariable String name)
+    {
+        return getUser(name).getPosts();
+    }
+
+    private User getUser(String name) throws UserNotFoundException
+    {
+        User user;
+        try
+        {
+            user = myUserService.getUser(name);
+        }
+        catch(Exception e)
         {
             throw new UserNotFoundException("User not found with the name " + name);
         }

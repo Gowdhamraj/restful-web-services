@@ -1,15 +1,19 @@
 package com.gow.microservices.restfulwebservices.users;
 
+import com.google.common.collect.ImmutableList;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ApiModel(description = "User model")
 @Entity
@@ -25,6 +29,9 @@ public class User{
     @Past
     @Nullable
     private Date myBirthDay;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> myPosts;
 
     public User()
     {
@@ -62,6 +69,15 @@ public class User{
 
     public void setBirthDay(Date myBirthDay) {
         this.myBirthDay = myBirthDay;
+    }
+
+    @ApiModelProperty(required = false)
+    public List<Post> getPosts() {
+        return ImmutableList.copyOf(myPosts);
+    }
+
+    public void setPosts(List<Post> myPosts) {
+        this.myPosts = myPosts.stream().collect(Collectors.toList());
     }
 
     @Override
