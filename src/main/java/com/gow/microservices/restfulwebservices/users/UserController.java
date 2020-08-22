@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v2/users")
@@ -53,12 +54,12 @@ public class UserController {
     @DeleteMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User deleteUser(@PathVariable String name)
     {
-        User user = myUserService.deleteUser(name);
-        if (user == null)
+        Optional<User> user = myUserService.deleteUser(name);
+        if (!user.isPresent())
         {
             throw new UserNotFoundException("User not found with the name " + name);
         }
-        return user;
+        return user.get();
     }
 
     @GetMapping(path = "/{name}/posts", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,15 +70,11 @@ public class UserController {
 
     private User getUser(String name) throws UserNotFoundException
     {
-        User user;
-        try
-        {
-            user = myUserService.getUser(name);
-        }
-        catch(Exception e)
+        Optional<User> user = myUserService.getUser(name);
+        if (!user.isPresent())
         {
             throw new UserNotFoundException("User not found with the name " + name);
         }
-        return user;
+        return user.get();
     }
 }

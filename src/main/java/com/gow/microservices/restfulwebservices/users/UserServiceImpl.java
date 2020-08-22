@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -17,9 +18,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUser(String name) {
+    public Optional<User> getUser(String name) {
         String formattedName = name.substring(0,1).toUpperCase()+name.substring(1).toLowerCase();
-        return userRepository.findById(formattedName).get();
+        return userRepository.findById(formattedName);
     }
 
     @Override
@@ -28,17 +29,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User deleteUser(String name) {
+    public Optional<User> deleteUser(String name) {
         String formattedName = name.substring(0,1).toUpperCase()+name.substring(1).toLowerCase();
-        User user;
-        try
+        Optional<User> user = userRepository.findById(formattedName);
+        if (user.isPresent())
         {
-            user = userRepository.findById(formattedName).get();
             userRepository.deleteById(formattedName);
-        }
-        catch (Exception e)
-        {
-            return null;
         }
         return user;
     }
